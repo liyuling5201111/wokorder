@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ext.WorkorderProMapperExt">
+  <resultMap id="BaseResultMap" type="com.example.demo.pojo.WorkorderPro">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="execute_order" jdbcType="TINYINT" property="executeOrder" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="int">
+    select id, `state`, execute_order, user_id, createtime, updatetime
+    from workorder_pro where user_id=#{userId}
+  </select>
+</mapper>

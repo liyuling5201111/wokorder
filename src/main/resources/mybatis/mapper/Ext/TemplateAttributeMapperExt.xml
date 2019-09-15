@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ext.TemplateAttributeMapperExt">
+  <resultMap id="BaseResultMap" type="com.example.demo.pojo.TemplateAttribute">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="timeout" jdbcType="TINYINT" property="timeout" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="template_id" jdbcType="INTEGER" property="templateId" />
+    <result column="node_code" jdbcType="INTEGER" property="nodeCode" />
+    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+  </resultMap>
+  <select id="selectAllByTemplateId" resultMap="BaseResultMap" parameterType="int">
+    select id, url, timeout, createtime, updateTime, template_id, node_code, node_name
+    from template_attribute where template_id=#{templateId}
+  </select>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.TemplateAttributeMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.pojo.TemplateAttribute">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="timeout" jdbcType="TINYINT" property="timeout" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="template_id" jdbcType="INTEGER" property="templateId" />
+    <result column="node_code" jdbcType="INTEGER" property="nodeCode" />
+    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from template_attribute
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.pojo.TemplateAttribute">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into template_attribute (url, timeout, createtime, 
+      updateTime, template_id, node_code, 
+      node_name)
+    values (#{url,jdbcType=VARCHAR}, #{timeout,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{templateId,jdbcType=INTEGER}, #{nodeCode,jdbcType=INTEGER}, 
+      #{nodeName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.pojo.TemplateAttribute">
+    update template_attribute
+    set url = #{url,jdbcType=VARCHAR},
+      timeout = #{timeout,jdbcType=TINYINT},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      template_id = #{templateId,jdbcType=INTEGER},
+      node_code = #{nodeCode,jdbcType=INTEGER},
+      node_name = #{nodeName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, url, timeout, createtime, updateTime, template_id, node_code, node_name
+    from template_attribute
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, url, timeout, createtime, updateTime, template_id, node_code, node_name
+    from template_attribute
+  </select>
+</mapper>
