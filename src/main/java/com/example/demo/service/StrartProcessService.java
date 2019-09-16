@@ -23,13 +23,16 @@ public class StrartProcessService {
     TaskService taskService;
     @Autowired
     WorkorderMapper workorderMapper;
-    List<TemplateAttribute> templateAttributes ;
+
     public  String getTaskUrl(NodeDto nodeDto){
-         templateAttributes = templateAttributeMapperExt.selectAllByTemplateId(nodeDto.getTemplateId());
-         TemplateAttribute templateAttribute = templateAttributes.get(nodeDto.getExecuteOrder());
+        //List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectAllByTemplateId(nodeDto.getTemplateId());
+        List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectByTemplateIdAndRoleId(nodeDto.getTemplateId(),nodeDto.getRoleId());
+        TemplateAttribute templateAttribute = templateAttributes.get(nodeDto.getExecuteOrder());
          return templateAttribute.getUrl();
      }
     public Task execute(WorkOrderProccessDto workOrderProccessDto){
+        //List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectAllByTemplateId(workOrderProccessDto.getWorkorder().getTemplateId());
+        List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectByTemplateIdAndRoleId(workOrderProccessDto.getWorkorder().getTemplateId(),workOrderProccessDto.getRoleId());
         //对外暴露一个监听端口，提供对指定的事件进行处理，譬如新建工单时，和审核时，需要额外的业务
         taskService.setWorkorderListener(new WorkorderListener() {
             @Override

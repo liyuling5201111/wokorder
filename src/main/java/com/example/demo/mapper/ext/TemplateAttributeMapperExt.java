@@ -8,4 +8,7 @@ import java.util.List;
 public interface TemplateAttributeMapperExt {
 
     List<TemplateAttribute> selectAllByTemplateId(int templateId);
+    List<TemplateAttribute> selectByTemplateIdAndRoleId(int templateId,int roleid);
+
+
 }

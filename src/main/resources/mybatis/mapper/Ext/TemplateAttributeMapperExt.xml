@@ -15,4 +15,8 @@
     select id, url, timeout, createtime, updateTime, template_id, node_code, node_name
     from template_attribute where template_id=#{templateId}
   </select>
+  <select id="selectByTemplateIdAndRoleId" resultMap="BaseResultMap" parameterType="int">
+    select id, url, timeout, createtime, updateTime, template_id, node_code, node_name
+    from template_attribute where template_id=#{templateId} and roleid=#{roleid}
+  </select>
 </mapper>

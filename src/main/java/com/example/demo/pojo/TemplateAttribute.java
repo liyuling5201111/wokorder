@@ -8,6 +8,10 @@ public class TemplateAttribute implements Serializable {
 
     private String url;
 
+    private Integer roleid;
+
+    private String rolename;
+
     private Byte timeout;
 
     private Date createtime;
@@ -36,6 +40,22 @@ public class TemplateAttribute implements Serializable {
 
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    public Integer getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename == null ? null : rolename.trim();
     }
 
     public Byte getTimeout() {
@@ -94,6 +114,8 @@ public class TemplateAttribute implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", url=").append(url);
+        sb.append(", roleid=").append(roleid);
+        sb.append(", rolename=").append(rolename);
         sb.append(", timeout=").append(timeout);
         sb.append(", createtime=").append(createtime);
         sb.append(", updatetime=").append(updatetime);
