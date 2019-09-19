@@ -8,6 +8,8 @@
     <result column="wrtype" jdbcType="VARCHAR" property="wrtype" />
     <result column="template_id" jdbcType="INTEGER" property="templateId" />
     <result column="wrstate" jdbcType="TINYINT" property="wrstate" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="map">
     delete from workorder
@@ -19,27 +21,31 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into workorder (wrcode, user_id, wrtype, 
-      template_id, wrstate)
+      template_id, wrstate, createtime, 
+      updatetime)
     values (#{wrcode,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{wrtype,jdbcType=VARCHAR}, 
-      #{templateId,jdbcType=INTEGER}, #{wrstate,jdbcType=TINYINT})
+      #{templateId,jdbcType=INTEGER}, #{wrstate,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.pojo.Workorder">
     update workorder
     set user_id = #{userId,jdbcType=INTEGER},
       wrtype = #{wrtype,jdbcType=VARCHAR},
       template_id = #{templateId,jdbcType=INTEGER},
-      wrstate = #{wrstate,jdbcType=TINYINT}
+      wrstate = #{wrstate,jdbcType=TINYINT},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
       and wrcode = #{wrcode,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
-    select id, wrcode, user_id, wrtype, template_id, wrstate
+    select id, wrcode, user_id, wrtype, template_id, wrstate, createtime, updatetime
     from workorder
     where id = #{id,jdbcType=INTEGER}
       and wrcode = #{wrcode,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, wrcode, user_id, wrtype, template_id, wrstate
+    select id, wrcode, user_id, wrtype, template_id, wrstate, createtime, updatetime
     from workorder
   </select>
 </mapper>

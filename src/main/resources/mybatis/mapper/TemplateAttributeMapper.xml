@@ -10,8 +10,8 @@
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
     <result column="template_id" jdbcType="INTEGER" property="templateId" />
-    <result column="node_code" jdbcType="INTEGER" property="nodeCode" />
-    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+    <result column="nodeCode" jdbcType="INTEGER" property="nodecode" />
+    <result column="nodeName" jdbcType="VARCHAR" property="nodename" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from template_attribute
@@ -23,11 +23,11 @@
     </selectKey>
     insert into template_attribute (url, roleid, rolename, 
       timeout, createtime, updateTime, 
-      template_id, node_code, node_name
+      template_id, nodeCode, `nodeName`
       )
     values (#{url,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{rolename,jdbcType=VARCHAR}, 
       #{timeout,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
-      #{templateId,jdbcType=INTEGER}, #{nodeCode,jdbcType=INTEGER}, #{nodeName,jdbcType=VARCHAR}
+      #{templateId,jdbcType=INTEGER}, #{nodecode,jdbcType=INTEGER}, #{nodename,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.pojo.TemplateAttribute">
@@ -39,19 +39,19 @@
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updateTime = #{updatetime,jdbcType=TIMESTAMP},
       template_id = #{templateId,jdbcType=INTEGER},
-      node_code = #{nodeCode,jdbcType=INTEGER},
-      node_name = #{nodeName,jdbcType=VARCHAR}
+      nodeCode = #{nodecode,jdbcType=INTEGER},
+      `nodeName` = #{nodename,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, url, roleid, rolename, timeout, createtime, updateTime, template_id, node_code, 
-    node_name
+    select id, url, roleid, rolename, timeout, createtime, updateTime, template_id, nodeCode, 
+    `nodeName`
     from template_attribute
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, url, roleid, rolename, timeout, createtime, updateTime, template_id, node_code, 
-    node_name
+    select id, url, roleid, rolename, timeout, createtime, updateTime, template_id, nodeCode, 
+    `nodeName`
     from template_attribute
   </select>
 </mapper>
