@@ -20,9 +20,9 @@ public class TemplateAttribute implements Serializable {
 
     private Integer templateId;
 
-    private Integer nodeCode;
+    private Integer nodecode;
 
-    private String nodeName;
+    private String nodename;
 
     private static final long serialVersionUID = 1L;
 
@@ -90,20 +90,20 @@ public class TemplateAttribute implements Serializable {
         this.templateId = templateId;
     }
 
-    public Integer getNodeCode() {
-        return nodeCode;
+    public Integer getNodecode() {
+        return nodecode;
     }
 
-    public void setNodeCode(Integer nodeCode) {
-        this.nodeCode = nodeCode;
+    public void setNodecode(Integer nodecode) {
+        this.nodecode = nodecode;
     }
 
-    public String getNodeName() {
-        return nodeName;
+    public String getNodename() {
+        return nodename;
     }
 
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName == null ? null : nodeName.trim();
+    public void setNodename(String nodename) {
+        this.nodename = nodename == null ? null : nodename.trim();
     }
 
     @Override
@@ -120,8 +120,8 @@ public class TemplateAttribute implements Serializable {
         sb.append(", createtime=").append(createtime);
         sb.append(", updatetime=").append(updatetime);
         sb.append(", templateId=").append(templateId);
-        sb.append(", nodeCode=").append(nodeCode);
-        sb.append(", nodeName=").append(nodeName);
+        sb.append(", nodecode=").append(nodecode);
+        sb.append(", nodename=").append(nodename);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

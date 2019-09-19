@@ -1,20 +1,26 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.NodeDto;
+import com.example.demo.dto.WorkOrderDto;
 import com.example.demo.dto.WorkOrderProccessDto;
 import com.example.demo.engine.Entity.Task;
 import com.example.demo.engine.Service.TaskService;
+import com.example.demo.pojo.TemplateAttribute;
+import com.example.demo.pojo.Workorder;
 import com.example.demo.service.StrartProcessService;
+import com.example.demo.service.WorkorderService;
+import com.example.demo.util.CallResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @Api(value = "流程节点执行")
@@ -23,7 +29,8 @@ public class StartProcessController {
     StrartProcessService strartProcessService;
     @Autowired
     TaskService taskService;
-
+    @Autowired
+    WorkorderService workorderService;
     @PostMapping("/gettaskurl")
     @ApiOperation(value = "获取节点中的url",notes = "新增之后返回对象")
     @ApiImplicitParam(paramType = "getTaskUrl",name = "nodeDto",value = "获取url",required = true,dataType = "NodeDto")
@@ -35,13 +42,43 @@ public class StartProcessController {
     }
 
     @PostMapping("/executetask")
-    @ApiOperation(value = "执行流程节点",notes = "新增之后返回对象")
-    @ApiImplicitParam(paramType = "executetask",name = "workOrderProccessDto",value = "流程节点",required = true,dataType = "WorkOrderProccessDto")
+    @ApiOperation(value = "执行流程节点",notes = "流程执行后返回的对象")
+    @ApiImplicitParam(paramType = "WorkOrderProccessDto",name = "workOrderProccessDto",value = "流程节点",required = true,dataType = "WorkOrderProccessDto")
     @ApiResponse(code = 400,message = "参数没有填好",response = Task.class)
     @ResponseBody
     public Task execute(@RequestBody WorkOrderProccessDto workOrderProccessDto) {
 
         return  strartProcessService.execute( workOrderProccessDto);
 
+    }
+
+    @PostMapping("/getNodesByTemplateId")
+    @ApiOperation(value = "获取节点中的url",notes = "新增之后返回对象")
+    @ApiImplicitParam(paramType = "getTaskUrl",name = "nodeDto",value = "获取url",required = true,dataType = "NodeDto")
+    @ApiResponse(code = 400,message = "参数没有填好",response = String.class)
+    @ResponseBody
+    public String getNodes(@RequestBody NodeDto nodeDto) {
+
+        return strartProcessService.getTaskUrl(nodeDto);
+    }
+
+
+
+    @PostMapping("/getnodes")
+    @ApiOperation(value = "获取所有流程节点",notes = "返回所有流程节点")
+    @ApiImplicitParam(paramType = "NodeDto",name = "nodeDto",value = "流程节点",required = true,dataType = "NodeDto")
+    @ApiResponse(code = 400,message = "参数没有填好",response = Task.class)
+    @ResponseBody
+    public CallResponse<List<TemplateAttribute>>  getnodes(@RequestBody NodeDto nodeDto) {
+        return strartProcessService.getTasks( nodeDto);
+    }
+
+    @PostMapping("/getworkorders")
+    @ApiOperation(value = "获取所有流程节点",notes = "返回所有流程节点")
+    @ApiImplicitParam(paramType = "NodeDto",name = "nodeDto",value = "流程节点",required = true,dataType = "NodeDto")
+    @ApiResponse(code = 400,message = "参数没有填好",response = Task.class)
+    @ResponseBody
+    public CallResponse<List<Workorder>>  getWorkorders(@RequestBody WorkOrderDto workOrderDto) {
+        return workorderService.getWorkorders(workOrderDto);
     }
 }

@@ -1,4 +1,10 @@
 package com.example.demo.engine.Service;
+
+import com.example.demo.dto.NodeDto;
+import com.example.demo.pojo.TemplateAttribute;
+
+import java.util.List;
+
 /**
 
 * @Description:    运行时服务组件
@@ -17,5 +23,5 @@ package com.example.demo.engine.Service;
 
 */
 public interface RuntimeService {
-
+    public List<TemplateAttribute> getTasks(NodeDto nodeDto);
 }

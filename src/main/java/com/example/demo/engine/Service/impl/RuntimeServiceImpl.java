@@ -1,7 +1,13 @@
 package com.example.demo.engine.Service.impl;
 
+import com.example.demo.dto.NodeDto;
 import com.example.demo.engine.Service.RuntimeService;
+import com.example.demo.mapper.ext.TemplateAttributeMapperExt;
+import com.example.demo.pojo.TemplateAttribute;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 
@@ -22,4 +28,10 @@ import org.springframework.stereotype.Service;
 */
 @Service
 public class RuntimeServiceImpl implements RuntimeService {
+    @Autowired
+    TemplateAttributeMapperExt templateAttributeMapperExt;
+    @Override
+    public List<TemplateAttribute> getTasks(NodeDto nodeDto) {
+        return templateAttributeMapperExt.selectByTemplateIdAndRoleId(nodeDto.getTemplateId(),nodeDto.getRoleId());
+    }
 }

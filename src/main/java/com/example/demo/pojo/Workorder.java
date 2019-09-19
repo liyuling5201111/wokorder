@@ -1,6 +1,7 @@
 package com.example.demo.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Workorder implements Serializable {
     private Integer id;
@@ -14,6 +15,10 @@ public class Workorder implements Serializable {
     private Integer templateId;
 
     private Byte wrstate;
+
+    private Date createtime;
+
+    private Date updatetime;
 
     private static final long serialVersionUID = 1L;
 
@@ -65,6 +70,22 @@ public class Workorder implements Serializable {
         this.wrstate = wrstate;
     }
 
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -77,6 +98,8 @@ public class Workorder implements Serializable {
         sb.append(", wrtype=").append(wrtype);
         sb.append(", templateId=").append(templateId);
         sb.append(", wrstate=").append(wrstate);
+        sb.append(", createtime=").append(createtime);
+        sb.append(", updatetime=").append(updatetime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
