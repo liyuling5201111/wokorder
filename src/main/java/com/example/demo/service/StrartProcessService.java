@@ -27,33 +27,39 @@ public class StrartProcessService {
     @Autowired
     RuntimeService runtimeService;
 
-    public  String getTaskUrl(NodeDto nodeDto){
+    public String getTaskUrl(NodeDto nodeDto) {
         //List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectAllByTemplateId(nodeDto.getTemplateId());
-        List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectByTemplateIdAndRoleId(nodeDto.getTemplateId(),nodeDto.getRoleId());
+        List<TemplateAttribute> templateAttributes = templateAttributeMapperExt.selectByTemplateIdAndRoleId(nodeDto.getTemplateId(), nodeDto.getRoleId());
         TemplateAttribute templateAttribute = templateAttributes.get(nodeDto.getExecuteOrder());
-         return templateAttribute.getUrl();
-     }
-    public Task execute(WorkOrderProccessDto workOrderProccessDto){
+        return templateAttribute.getUrl();
+    }
+
+    public CallResponse<String> execute(WorkOrderProccessDto workOrderProccessDto) {
         //List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectAllByTemplateId(workOrderProccessDto.getWorkorder().getTemplateId());
-        List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectByTemplateIdAndRoleId(workOrderProccessDto.getWorkorder().getTemplateId(),workOrderProccessDto.getRoleId());
+        // List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectByTemplateIdAndRoleId(workOrderProccessDto.getWorkorder().getTemplateId(),workOrderProccessDto.getRoleId());
         //对外暴露一个监听端口，提供对指定的事件进行处理，譬如新建工单时，和审核时，需要额外的业务
         taskService.setWorkorderListener(new WorkorderListener() {
             @Override
             public boolean createWopkorder() {
-                int i=workorderMapper.insert(workOrderProccessDto.getWorkorder());
-                if(i>0){
-                    return  true;
+                int i = workorderMapper.insert(workOrderProccessDto.getWorkorder());
+                if (i > 0) {
+                    return true;
                 }
-               return false;
+                return false;
             }
 
             @Override
             public boolean aduit() {
                 return true;
             }
+
+            @Override
+            public boolean settleAccount() {
+                return false;
+            }
         });
-        taskService.complete(templateAttributes,workOrderProccessDto);
-        return null;
+
+        return CallResponse.success(taskService.complete(workOrderProccessDto).getMessage());
 
     }
 
@@ -64,7 +70,7 @@ public class StrartProcessService {
      * @throws
      * @date        2019/9/19 17:51
      * */
-    public  CallResponse<List<TemplateAttribute>> getTasks(@RequestBody  NodeDto nodeDto){
-        return  CallResponse.success(  runtimeService.getTasks(nodeDto));
+    public CallResponse<List<TemplateAttribute>> getTasks(@RequestBody NodeDto nodeDto) {
+        return CallResponse.success(runtimeService.getTasks(nodeDto));
     }
 }

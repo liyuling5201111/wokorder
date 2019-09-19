@@ -30,6 +30,14 @@ import java.util.List;
 public class RuntimeServiceImpl implements RuntimeService {
     @Autowired
     TemplateAttributeMapperExt templateAttributeMapperExt;
+    /**
+     * 获取所有节点信息
+     *@author      作者姓名
+     *@param       * @param null
+     * @return
+     * @exception
+     * @date      2019/9/20 0:42
+     */
     @Override
     public List<TemplateAttribute> getTasks(NodeDto nodeDto) {
         return templateAttributeMapperExt.selectByTemplateIdAndRoleId(nodeDto.getTemplateId(),nodeDto.getRoleId());

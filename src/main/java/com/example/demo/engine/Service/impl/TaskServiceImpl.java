@@ -2,6 +2,7 @@ package com.example.demo.engine.Service.impl;
 
 import com.example.demo.dto.WorkOrderProccessDto;
 import com.example.demo.engine.Entity.Task;
+import com.example.demo.engine.Entity.TaskEntity;
 import com.example.demo.engine.Service.TaskService;
 
 import com.example.demo.engine.Service.WorkorderListener;
@@ -25,17 +26,21 @@ public class TaskServiceImpl implements TaskService {
 
     private WorkorderListener workorderListener;
     @Override
-    public Task complete(List<TemplateAttribute> templateAttributes,WorkOrderProccessDto workOrderProccessDto) {
+    public Task complete(WorkOrderProccessDto workOrderProccessDto) {
         switch (Integer.valueOf(workOrderProccessDto.getWorkorderPro().getState())){
             case WorkOrderProState.CREATE:
                 workorderListener.createWopkorder();
-                    break;
+                break;
             case WorkOrderProState.ADUIT:
                 workorderListener.aduit();
                 break;
         }
-        workorderProMapper.insert(workOrderProccessDto.getWorkorderPro());
-        return null;
+       int i= workorderProMapper.insert(workOrderProccessDto.getWorkorderPro());
+       Task task=new TaskEntity();
+       task.setSuccess(true);
+       task.setMessage(workOrderProccessDto.getWorkorderPro().getNodename());
+       task.setTaskId(workOrderProccessDto.getWorkorderPro().getId());
+        return task;
     }
 
     @Override

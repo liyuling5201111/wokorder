@@ -31,10 +31,11 @@ public class StartProcessController {
     TaskService taskService;
     @Autowired
     WorkorderService workorderService;
+
     @PostMapping("/gettaskurl")
-    @ApiOperation(value = "获取节点中的url",notes = "新增之后返回对象")
-    @ApiImplicitParam(paramType = "getTaskUrl",name = "nodeDto",value = "获取url",required = true,dataType = "NodeDto")
-    @ApiResponse(code = 400,message = "参数没有填好",response = String.class)
+    @ApiOperation(value = "获取节点中的url", notes = "新增之后返回对象")
+    @ApiImplicitParam(paramType = "getTaskUrl", name = "nodeDto", value = "获取url", required = true, dataType = "NodeDto")
+    @ApiResponse(code = 400, message = "参数没有填好", response = String.class)
     @ResponseBody
     public String getTaskUrl(@RequestBody NodeDto nodeDto) {
 
@@ -42,20 +43,18 @@ public class StartProcessController {
     }
 
     @PostMapping("/executetask")
-    @ApiOperation(value = "执行流程节点",notes = "流程执行后返回的对象")
-    @ApiImplicitParam(paramType = "WorkOrderProccessDto",name = "workOrderProccessDto",value = "流程节点",required = true,dataType = "WorkOrderProccessDto")
-    @ApiResponse(code = 400,message = "参数没有填好",response = Task.class)
+    @ApiOperation(value = "执行流程节点", notes = "流程执行后返回的对象")
+    @ApiImplicitParam(paramType = "WorkOrderProccessDto", name = "workOrderProccessDto", value = "流程节点", required = true, dataType = "WorkOrderProccessDto")
+    @ApiResponse(code = 400, message = "参数没有填好", response = Task.class)
     @ResponseBody
-    public Task execute(@RequestBody WorkOrderProccessDto workOrderProccessDto) {
-
-        return  strartProcessService.execute( workOrderProccessDto);
-
+    public CallResponse<String> execute(@RequestBody WorkOrderProccessDto workOrderProccessDto) {
+        return strartProcessService.execute(workOrderProccessDto);
     }
 
     @PostMapping("/getNodesByTemplateId")
-    @ApiOperation(value = "获取节点中的url",notes = "新增之后返回对象")
-    @ApiImplicitParam(paramType = "getTaskUrl",name = "nodeDto",value = "获取url",required = true,dataType = "NodeDto")
-    @ApiResponse(code = 400,message = "参数没有填好",response = String.class)
+    @ApiOperation(value = "获取节点中的url", notes = "新增之后返回对象")
+    @ApiImplicitParam(paramType = "getTaskUrl", name = "nodeDto", value = "获取url", required = true, dataType = "NodeDto")
+    @ApiResponse(code = 400, message = "参数没有填好", response = String.class)
     @ResponseBody
     public String getNodes(@RequestBody NodeDto nodeDto) {
 
@@ -63,22 +62,21 @@ public class StartProcessController {
     }
 
 
-
     @PostMapping("/getnodes")
-    @ApiOperation(value = "获取所有流程节点",notes = "返回所有流程节点")
-    @ApiImplicitParam(paramType = "NodeDto",name = "nodeDto",value = "流程节点",required = true,dataType = "NodeDto")
-    @ApiResponse(code = 400,message = "参数没有填好",response = Task.class)
+    @ApiOperation(value = "获取所有流程节点", notes = "返回所有流程节点")
+    @ApiImplicitParam(paramType = "NodeDto", name = "nodeDto", value = "流程节点", required = true, dataType = "NodeDto")
+    @ApiResponse(code = 400, message = "参数没有填好", response = Task.class)
     @ResponseBody
-    public CallResponse<List<TemplateAttribute>>  getnodes(@RequestBody NodeDto nodeDto) {
-        return strartProcessService.getTasks( nodeDto);
+    public CallResponse<List<TemplateAttribute>> getnodes(@RequestBody NodeDto nodeDto) {
+        return strartProcessService.getTasks(nodeDto);
     }
 
     @PostMapping("/getworkorders")
-    @ApiOperation(value = "获取所有流程节点",notes = "返回所有流程节点")
-    @ApiImplicitParam(paramType = "NodeDto",name = "nodeDto",value = "流程节点",required = true,dataType = "NodeDto")
-    @ApiResponse(code = 400,message = "参数没有填好",response = Task.class)
+    @ApiOperation(value = "获取所有流程节点", notes = "返回所有流程节点")
+    @ApiImplicitParam(paramType = "NodeDto", name = "nodeDto", value = "流程节点", required = true, dataType = "NodeDto")
+    @ApiResponse(code = 400, message = "参数没有填好", response = Task.class)
     @ResponseBody
-    public CallResponse<List<Workorder>>  getWorkorders(@RequestBody WorkOrderDto workOrderDto) {
+    public CallResponse<List<Workorder>> getWorkorders(@RequestBody WorkOrderDto workOrderDto) {
         return workorderService.getWorkorders(workOrderDto);
     }
 }

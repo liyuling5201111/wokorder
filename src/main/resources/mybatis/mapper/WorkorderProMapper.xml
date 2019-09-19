@@ -6,6 +6,7 @@
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="execute_order" jdbcType="TINYINT" property="executeOrder" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="nodename" jdbcType="VARCHAR" property="nodename" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
     <result column="wrcode" jdbcType="VARCHAR" property="wrcode" />
@@ -19,29 +20,30 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into workorder_pro (`state`, execute_order, user_id, 
-      createtime, updatetime, wrcode
-      )
+      `nodename`, createtime, updatetime, 
+      wrcode)
     values (#{state,jdbcType=TINYINT}, #{executeOrder,jdbcType=TINYINT}, #{userId,jdbcType=INTEGER}, 
-      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{wrcode,jdbcType=VARCHAR}
-      )
+      #{nodename,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{wrcode,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.pojo.WorkorderPro">
     update workorder_pro
     set `state` = #{state,jdbcType=TINYINT},
       execute_order = #{executeOrder,jdbcType=TINYINT},
       user_id = #{userId,jdbcType=INTEGER},
+      `nodename` = #{nodename,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP},
       wrcode = #{wrcode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, `state`, execute_order, user_id, createtime, updatetime, wrcode
+    select id, `state`, execute_order, user_id, `nodename`, createtime, updatetime, wrcode
     from workorder_pro
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, `state`, execute_order, user_id, createtime, updatetime, wrcode
+    select id, `state`, execute_order, user_id, `nodename`, createtime, updatetime, wrcode
     from workorder_pro
   </select>
 </mapper>

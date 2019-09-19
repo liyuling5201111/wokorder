@@ -3,6 +3,8 @@ package com.example.demo.engine.Service;
 import com.example.demo.dto.WorkOrderProccessDto;
 import com.example.demo.engine.Entity.Task;
 import com.example.demo.pojo.TemplateAttribute;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,8 +17,9 @@ import java.util.List;
  * @UpdateRemark: 修改内容
  * @Version: 1.0
  */
+
 public interface TaskService {
-    public Task complete(List<TemplateAttribute> templateAttributes, WorkOrderProccessDto workOrderProccessDto);
+    public Task complete( WorkOrderProccessDto workOrderProccessDto);
 
     public List<TemplateAttribute> querWorkOrderAttribute(int templateId);
 

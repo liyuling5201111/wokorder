@@ -12,6 +12,8 @@ public class WorkorderPro implements Serializable {
 
     private Integer userId;
 
+    private String nodename;
+
     private Date createtime;
 
     private Date updatetime;
@@ -52,6 +54,14 @@ public class WorkorderPro implements Serializable {
         this.userId = userId;
     }
 
+    public String getNodename() {
+        return nodename;
+    }
+
+    public void setNodename(String nodename) {
+        this.nodename = nodename == null ? null : nodename.trim();
+    }
+
     public Date getCreatetime() {
         return createtime;
     }
@@ -86,6 +96,7 @@ public class WorkorderPro implements Serializable {
         sb.append(", state=").append(state);
         sb.append(", executeOrder=").append(executeOrder);
         sb.append(", userId=").append(userId);
+        sb.append(", nodename=").append(nodename);
         sb.append(", createtime=").append(createtime);
         sb.append(", updatetime=").append(updatetime);
         sb.append(", wrcode=").append(wrcode);
