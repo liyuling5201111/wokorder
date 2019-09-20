@@ -7,6 +7,7 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="wrtype" jdbcType="VARCHAR" property="wrtype" />
     <result column="template_id" jdbcType="INTEGER" property="templateId" />
+    <result column="prostate" jdbcType="INTEGER" property="prostate" />
     <result column="wrstate" jdbcType="TINYINT" property="wrstate" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
@@ -21,17 +22,18 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into workorder (wrcode, user_id, wrtype, 
-      template_id, wrstate, createtime, 
-      updatetime)
+      template_id, prostate, wrstate, 
+      createtime, updatetime)
     values (#{wrcode,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{wrtype,jdbcType=VARCHAR}, 
-      #{templateId,jdbcType=INTEGER}, #{wrstate,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{updatetime,jdbcType=TIMESTAMP})
+      #{templateId,jdbcType=INTEGER}, #{prostate,jdbcType=INTEGER}, #{wrstate,jdbcType=TINYINT}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.pojo.Workorder">
     update workorder
     set user_id = #{userId,jdbcType=INTEGER},
       wrtype = #{wrtype,jdbcType=VARCHAR},
       template_id = #{templateId,jdbcType=INTEGER},
+      prostate = #{prostate,jdbcType=INTEGER},
       wrstate = #{wrstate,jdbcType=TINYINT},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
@@ -39,13 +41,13 @@
       and wrcode = #{wrcode,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
-    select id, wrcode, user_id, wrtype, template_id, wrstate, createtime, updatetime
+    select id, wrcode, user_id, wrtype, template_id, prostate, wrstate, createtime, updatetime
     from workorder
     where id = #{id,jdbcType=INTEGER}
       and wrcode = #{wrcode,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, wrcode, user_id, wrtype, template_id, wrstate, createtime, updatetime
+    select id, wrcode, user_id, wrtype, template_id, prostate, wrstate, createtime, updatetime
     from workorder
   </select>
 </mapper>

@@ -13,9 +13,12 @@
   </resultMap>
 
   <select id="selectByUserIdWrcode" parameterType="map" resultMap="BaseResultMap">
-    select id, wrcode, user_id, wrtype, template_id, wrstate, createtime, updatetime
+    select id, wrcode, user_id, wrtype, template_id, wrstate,prostate,createtime, updatetime
     from workorder
-    where user_id = #{userId,jdbcType=INTEGER} and wrstate = #{wrcode,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER} and wrstate =3
   </select>
-
+  <update id="updateByWrcode"  parameterType="map" >
+    update workorder
+    set prostate = #{prostate,jdbcType=INTEGER} where wrcode = #{wrcode,jdbcType=VARCHAR}
+  </update>
 </mapper>

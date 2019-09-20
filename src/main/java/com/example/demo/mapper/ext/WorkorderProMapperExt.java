@@ -7,6 +7,7 @@ import java.util.List;
 @Mapper
 public interface WorkorderProMapperExt {
 
-
     List<WorkorderPro> selectProByUserId(int userId);
+
+    List<WorkorderPro> selectProByWrcode(String wrcode);
 }

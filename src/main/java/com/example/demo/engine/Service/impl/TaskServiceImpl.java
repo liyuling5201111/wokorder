@@ -4,16 +4,15 @@ import com.example.demo.dto.WorkOrderProccessDto;
 import com.example.demo.engine.Entity.Task;
 import com.example.demo.engine.Entity.TaskEntity;
 import com.example.demo.engine.Service.TaskService;
-
 import com.example.demo.engine.Service.WorkorderListener;
 import com.example.demo.engine.constants.WorkOrderProState;
-import com.example.demo.engine.constants.WorkOrderProStateEnum;
 import com.example.demo.mapper.WorkorderProMapper;
-
 import com.example.demo.mapper.ext.TemplateAttributeMapperExt;
+import com.example.demo.mapper.ext.WorkorderMapperExt;
 import com.example.demo.pojo.TemplateAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,9 +22,11 @@ public class TaskServiceImpl implements TaskService {
     WorkorderProMapper workorderProMapper;
     @Autowired
     TemplateAttributeMapperExt templateAttributeMapperExt;
-
+    @Autowired
+    WorkorderMapperExt workorderMapperExt;
     private WorkorderListener workorderListener;
     @Override
+    @Transactional
     public Task complete(WorkOrderProccessDto workOrderProccessDto) {
         switch (Integer.valueOf(workOrderProccessDto.getWorkorderPro().getState())){
             case WorkOrderProState.CREATE:
@@ -35,6 +36,7 @@ public class TaskServiceImpl implements TaskService {
                 workorderListener.aduit();
                 break;
         }
+        workorderMapperExt.updateByWrcode(Integer.valueOf(workOrderProccessDto.getWorkorderPro().getState()),workOrderProccessDto.getWorkorderPro().getWrcode());
        int i= workorderProMapper.insert(workOrderProccessDto.getWorkorderPro());
        Task task=new TaskEntity();
        task.setSuccess(true);
@@ -47,7 +49,7 @@ public class TaskServiceImpl implements TaskService {
     public List<TemplateAttribute> querWorkOrderAttribute(int templateId) {
         return templateAttributeMapperExt.selectAllByTemplateId(templateId);
     }
-
+    @Override
     public void setWorkorderListener(WorkorderListener workorderListener) {
         this.workorderListener = workorderListener;
     }

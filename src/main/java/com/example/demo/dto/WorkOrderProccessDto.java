@@ -9,6 +9,7 @@ public class WorkOrderProccessDto {
     private int userId;
     private String adderss;
     private int roleId;
+    private String wrCode;
     private WorkorderPro workorderPro;
     private Workorder workorder;
 }

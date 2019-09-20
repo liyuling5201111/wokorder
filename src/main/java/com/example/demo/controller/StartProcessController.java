@@ -7,6 +7,7 @@ import com.example.demo.engine.Entity.Task;
 import com.example.demo.engine.Service.TaskService;
 import com.example.demo.pojo.TemplateAttribute;
 import com.example.demo.pojo.Workorder;
+import com.example.demo.pojo.WorkorderPro;
 import com.example.demo.service.StrartProcessService;
 import com.example.demo.service.WorkorderService;
 import com.example.demo.util.CallResponse;
@@ -79,4 +80,12 @@ public class StartProcessController {
     public CallResponse<List<Workorder>> getWorkorders(@RequestBody WorkOrderDto workOrderDto) {
         return workorderService.getWorkorders(workOrderDto);
     }
+
+    @PostMapping("/getworkorderpros")
+
+    @ResponseBody
+    public CallResponse<List<WorkorderPro>> getworkorderpros(@RequestBody WorkOrderProccessDto workOrderProccessDto) {
+        return workorderService.getWorkorders(workOrderProccessDto);
+    }
+
 }

@@ -2,16 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.ext.WorkorderProMapperExt">
   <resultMap id="BaseResultMap" type="com.example.demo.pojo.WorkorderPro">
-    <result column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="execute_order" jdbcType="TINYINT" property="executeOrder" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="nodename" jdbcType="VARCHAR" property="nodename" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="wrcode" jdbcType="VARCHAR" property="wrcode" />
   </resultMap>
-
   <select id="selectAll" resultMap="BaseResultMap" parameterType="int">
     select id, `state`, execute_order, user_id, createtime, updatetime
     from workorder_pro where user_id=#{userId}
+  </select>
+
+  <select id="selectProByWrcode" resultMap="BaseResultMap" parameterType="string">
+    select  id, state, execute_order, user_id, nodename, createtime, updatetime, wrcode
+         from workorder_pro where wrcode=#{wrcode}
   </select>
 </mapper>

@@ -14,6 +14,8 @@ public class Workorder implements Serializable {
 
     private Integer templateId;
 
+    private Integer prostate;
+
     private Byte wrstate;
 
     private Date createtime;
@@ -62,6 +64,14 @@ public class Workorder implements Serializable {
         this.templateId = templateId;
     }
 
+    public Integer getProstate() {
+        return prostate;
+    }
+
+    public void setProstate(Integer prostate) {
+        this.prostate = prostate;
+    }
+
     public Byte getWrstate() {
         return wrstate;
     }
@@ -97,6 +107,7 @@ public class Workorder implements Serializable {
         sb.append(", userId=").append(userId);
         sb.append(", wrtype=").append(wrtype);
         sb.append(", templateId=").append(templateId);
+        sb.append(", prostate=").append(prostate);
         sb.append(", wrstate=").append(wrstate);
         sb.append(", createtime=").append(createtime);
         sb.append(", updatetime=").append(updatetime);

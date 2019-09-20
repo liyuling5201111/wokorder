@@ -11,4 +11,6 @@ public interface WorkorderMapperExt {
 
     List<Workorder> selectByUserIdWrcode(@Param("userId") Integer userId, @Param("wrcode") String wrcode);
 
+    int  updateByWrcode(@Param("prostate") Integer prostate, @Param("wrcode") String wrcode);
+
 }

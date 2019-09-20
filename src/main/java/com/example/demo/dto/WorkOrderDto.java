@@ -13,4 +13,5 @@ import lombok.Data;
 public class WorkOrderDto {
     private int userId;
     private String wrstate;
+    private String wrCode;
 }
