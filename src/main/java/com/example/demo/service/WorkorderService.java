@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.WorkOrderDto;
-import com.example.demo.dto.WorkOrderProccessDto;
 import com.example.demo.mapper.ext.WorkorderMapperExt;
 import com.example.demo.mapper.ext.WorkorderProMapperExt;
 import com.example.demo.pojo.Workorder;
@@ -34,11 +33,6 @@ public class WorkorderService {
 
     public  CallResponse<List<WorkorderPro>> getWorkorderPros(String wrCode){
         List<WorkorderPro> workOrderPros = workorderProMapperExt.selectProByWrcode(wrCode);
-
         return  CallResponse.success(workOrderPros);
-    }
-    public CallResponse<List<WorkorderPro>> getworkorderpros(WorkOrderProccessDto workOrderProccessDto) {
-        List<WorkorderPro> workorderPorcs = workorderProMapperExt.selectProByWrcode(workOrderProccessDto.getWrCode());
-        return  CallResponse.success(workorderPorcs);
     }
 }

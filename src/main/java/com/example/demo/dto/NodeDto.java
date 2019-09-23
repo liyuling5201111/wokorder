@@ -6,5 +6,7 @@ import lombok.Data;
 public class NodeDto {
     private int  executeOrder;
     private int  templateId;
-    private int roleId;
+    private int  roleId;
+    private String url;
+    private int id;
 }

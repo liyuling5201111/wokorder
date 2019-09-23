@@ -7,7 +7,6 @@ import com.example.demo.engine.Entity.Task;
 import com.example.demo.engine.Service.TaskService;
 import com.example.demo.pojo.TemplateAttribute;
 import com.example.demo.pojo.Workorder;
-import com.example.demo.pojo.WorkorderPro;
 import com.example.demo.service.StrartProcessService;
 import com.example.demo.service.WorkorderService;
 import com.example.demo.util.CallResponse;
@@ -20,9 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.List;
-
 @Controller
 @Api(value = "流程节点执行")
 public class StartProcessController {
@@ -81,11 +78,32 @@ public class StartProcessController {
         return workorderService.getWorkorders(workOrderDto);
     }
 
-    @PostMapping("/getworkorderpros")
-
+    /*
+     * 获取模板
+     * @author      admin
+     * @param
+     * @return
+     * @throws
+     * @date        2019/9/23 10:45
+     * */
+    @PostMapping("/getcomponent")
     @ResponseBody
-    public CallResponse<List<WorkorderPro>> getworkorderpros(@RequestBody WorkOrderProccessDto workOrderProccessDto) {
-        return workorderService.getWorkorders(workOrderProccessDto);
+    public CallResponse<String> getcomponent(@RequestBody NodeDto nodeDto) {
+        return strartProcessService.getcomponent(nodeDto);
     }
 
+
+    /*
+     * 模板保存
+     * @author      admin
+     * @param       [nodeDto]
+     * @return     com.example.demo.util.CallResponse<java.lang.String>
+     * @throws
+     * @date        2019/9/23 10:46
+     * */
+    @PostMapping("/savecomponent")
+    @ResponseBody
+    public CallResponse<String> savecomponent(@RequestBody NodeDto nodeDto) {
+        return strartProcessService.savecomponent(nodeDto);
+    }
 }

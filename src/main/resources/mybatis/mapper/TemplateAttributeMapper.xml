@@ -3,7 +3,6 @@
 <mapper namespace="com.example.demo.mapper.TemplateAttributeMapper">
   <resultMap id="BaseResultMap" type="com.example.demo.pojo.TemplateAttribute">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="roleid" jdbcType="INTEGER" property="roleid" />
     <result column="rolename" jdbcType="VARCHAR" property="rolename" />
     <result column="timeout" jdbcType="TINYINT" property="timeout" />
@@ -12,6 +11,7 @@
     <result column="template_id" jdbcType="INTEGER" property="templateId" />
     <result column="nodeCode" jdbcType="INTEGER" property="nodecode" />
     <result column="nodeName" jdbcType="VARCHAR" property="nodename" />
+    <result column="url" jdbcType="LONGVARCHAR" property="url" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from template_attribute
@@ -21,37 +21,37 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into template_attribute (url, roleid, rolename, 
-      timeout, createtime, updateTime, 
-      template_id, nodeCode, `nodeName`
+    insert into template_attribute (roleid, rolename, timeout, 
+      createtime, updateTime, template_id, 
+      nodeCode, `nodeName`, url
       )
-    values (#{url,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{rolename,jdbcType=VARCHAR}, 
-      #{timeout,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
-      #{templateId,jdbcType=INTEGER}, #{nodecode,jdbcType=INTEGER}, #{nodename,jdbcType=VARCHAR}
+    values (#{roleid,jdbcType=INTEGER}, #{rolename,jdbcType=VARCHAR}, #{timeout,jdbcType=TINYINT}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{templateId,jdbcType=INTEGER}, 
+      #{nodecode,jdbcType=INTEGER}, #{nodename,jdbcType=VARCHAR}, #{url,jdbcType=LONGVARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.pojo.TemplateAttribute">
     update template_attribute
-    set url = #{url,jdbcType=VARCHAR},
-      roleid = #{roleid,jdbcType=INTEGER},
+    set roleid = #{roleid,jdbcType=INTEGER},
       rolename = #{rolename,jdbcType=VARCHAR},
       timeout = #{timeout,jdbcType=TINYINT},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updateTime = #{updatetime,jdbcType=TIMESTAMP},
       template_id = #{templateId,jdbcType=INTEGER},
       nodeCode = #{nodecode,jdbcType=INTEGER},
-      `nodeName` = #{nodename,jdbcType=VARCHAR}
+      `nodeName` = #{nodename,jdbcType=VARCHAR},
+      url = #{url,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, url, roleid, rolename, timeout, createtime, updateTime, template_id, nodeCode, 
-    `nodeName`
+    select id, roleid, rolename, timeout, createtime, updateTime, template_id, nodeCode, 
+    `nodeName`, url
     from template_attribute
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, url, roleid, rolename, timeout, createtime, updateTime, template_id, nodeCode, 
-    `nodeName`
+    select id, roleid, rolename, timeout, createtime, updateTime, template_id, nodeCode, 
+    `nodeName`, url
     from template_attribute
   </select>
 </mapper>

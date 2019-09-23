@@ -5,6 +5,7 @@ import com.example.demo.dto.WorkOrderProccessDto;
 import com.example.demo.engine.Service.RuntimeService;
 import com.example.demo.engine.Service.TaskService;
 import com.example.demo.engine.Service.WorkorderListener;
+import com.example.demo.mapper.TemplateAttributeMapper;
 import com.example.demo.mapper.WorkorderMapper;
 import com.example.demo.mapper.ext.TemplateAttributeMapperExt;
 import com.example.demo.pojo.TemplateAttribute;
@@ -18,13 +19,15 @@ import java.util.List;
 @Service
 public class StrartProcessService {
     @Autowired
-    TemplateAttributeMapperExt templateAttributeMapperExt;
+    private TemplateAttributeMapperExt templateAttributeMapperExt;
     @Autowired
-    TaskService taskService;
+    private TemplateAttributeMapper templateAttributeMapper;
     @Autowired
-    WorkorderMapper workorderMapper;
+    private TaskService taskService;
     @Autowired
-    RuntimeService runtimeService;
+    private WorkorderMapper workorderMapper;
+    @Autowired
+    private RuntimeService runtimeService;
 
     public String getTaskUrl(NodeDto nodeDto) {
         //List<TemplateAttribute>  templateAttributes = templateAttributeMapperExt.selectAllByTemplateId(nodeDto.getTemplateId());
@@ -71,5 +74,18 @@ public class StrartProcessService {
      * */
     public CallResponse<List<TemplateAttribute>> getTasks(@RequestBody NodeDto nodeDto) {
         return CallResponse.success(runtimeService.getTasks(nodeDto));
+    }
+
+    public CallResponse<String> getcomponent(@RequestBody NodeDto nodeDto) {
+
+        return CallResponse.success(templateAttributeMapper.selectByPrimaryKey(nodeDto.getId()).getUrl());
+    }
+
+    public CallResponse<String> savecomponent(@RequestBody NodeDto nodeDto) {
+        TemplateAttribute templateAttribute=new TemplateAttribute();
+        templateAttribute.setId(nodeDto.getId());
+        templateAttribute.setUrl(nodeDto.getUrl());
+        templateAttributeMapperExt.updateUrlByPrimaryKey(templateAttribute);
+        return CallResponse.success("模板保存成功");
     }
 }

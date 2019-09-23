@@ -15,5 +15,5 @@ public interface TemplateAttributeMapperExt {
             " from template_attribute where template_id=#{templateId} and roleid=#{roleid}")
     public List<TemplateAttribute> selectByTemplateIdAndRoleId(@Param("templateId") Integer templateId,@Param("roleid") Integer roleid);
 
-
+   public  int updateUrlByPrimaryKey(TemplateAttribute record);
 }
